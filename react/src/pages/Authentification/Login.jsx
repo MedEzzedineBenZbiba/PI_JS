@@ -66,8 +66,8 @@ const Login = () => {
                 <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
               </a>
             </div>
-             <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+             <h4 class="mb-2">Welcome Back ! 👋</h4>
+            <p class="mb-4">Please sign-in to your account </p>
 
             <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
               <div class="mb-3">
