@@ -21,6 +21,7 @@ const ResetPassword = () => {
 
       setSuccess(true);
       setError("");
+      navigate("/login")
     } catch (err) {
       setError("Something went wrong! Please try again.");
       setSuccess(false);
