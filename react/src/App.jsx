@@ -24,7 +24,7 @@ import AddPatientForm from "./pages/receptionnist/AddPatientForm";
 import UpdatePatientTriage from "./pages/Triage-nurse/UpdatePatientTriage";
 
  import EmployeeStats from "./pages/stats/statistique";
-import ListeEmployees from "./pages/listeEmployees/listeEmployees";
+import ListeEmployees from "./pages/listeEmployees/ListeEmployees";
 import UpdatePatientForm from "./pages/receptionnist/UpdatePatientForm"
 import EmployeesDetails from "./pages/listeEmployees/EmployeesDetails";
 import "bootstrap/dist/css/bootstrap.min.css";MyLeaveRequests

@@ -17,7 +17,7 @@ const Register = () => {
     image: null,
   }
 
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null)
 
   const [formData, setFormData] = useState(initialFormState)
   const [showPassword, setShowPassword] = useState(false)
@@ -359,7 +359,6 @@ const Register = () => {
                 >
                   <option value=''>Select role</option>
                   <option value='doctor'>Doctor</option>
-                  <option value='admin'>Admin</option>
                   <option value='nurse'>Nurse</option>
                   <option value='triage_nurse'>Triage-nurse</option>
                   <option value='receptionnist'>Receptionnist</option>
@@ -464,11 +463,11 @@ const Register = () => {
 
               {/* Affichage de l’image capturée ou uploadée */}
               {previewImage && (
-                <div className="mb-3 text-center">
-                  <p className="text-success">✅ Image sélectionnée</p>
+                <div className='mb-3 text-center'>
+                  <p className='text-success'>✅ Image sélectionnée</p>
                   <img
                     src={previewImage}
-                    alt="Preview"
+                    alt='Preview'
                     style={{
                       maxWidth: "200px",
                       borderRadius: "8px",
@@ -479,8 +478,12 @@ const Register = () => {
               )}
 
               {/* Capture avec caméra */}
-              <div className="mb-3">
-                <button type="button" className="btn btn-secondary" onClick={handleCapture}>
+              <div className='mb-3'>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  onClick={handleCapture}
+                >
                   Capture Photo
                 </button>
                 {errors.camera && (
