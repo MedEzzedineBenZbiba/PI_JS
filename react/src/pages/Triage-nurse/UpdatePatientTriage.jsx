@@ -52,10 +52,10 @@ const UpdatePatientTriage = () => {
           age: calculateAge(d.birthDate),
           gender: d.sex || d.gender || '',
           painScale: d.painScale || '',
-          source: d.source || 'ambulance',
+          source: d.arrivalMode ? Object.keys(mapSourceToCode).find(key => mapSourceToCode[key] === (d.arrivalMode === 'Ambulance' ? 0 : d.arrivalMode === 'On foot' ? 1 : 2)) : 'ambulance',
           systolicBP: d.systolicBP || '',
           o2Saturation: d.o2Saturation || '',
-          temperature: d.bodyTemperature || ''
+          temperature: d.temperature || ''
         });
       } catch (err) {
         setMessage(`Load error: ${err.response?.data?.error || err.message}`);
@@ -85,11 +85,12 @@ const UpdatePatientTriage = () => {
     if (!validate()) return;
 
     try {
-      // 1) Envoi des valeurs brutes au backend (pipeline s'occupe du scaling)
+      // 1) Envoi des valeurs brutes + id au service de prédiction
       const { data } = await axios.post('http://localhost:5000/predict', {
+        id,
         age: Number(formData.age),
         PainGrade: Number(formData.painScale),
-        Source:   mapSourceToCode[formData.source],
+        Source: mapSourceToCode[formData.source],
         BlooddpressurSystol: Number(formData.systolicBP),
         O2Saturation: Number(formData.o2Saturation)
       });
@@ -98,9 +99,14 @@ const UpdatePatientTriage = () => {
       const status = mapGradeToStatus(grade);
       setTriageResult({ grade, status });
 
-      // 2) Mise à jour du patient côté Node.js
-      await axios.put(`http://localhost:3000/api/patients/${id}`, {
-        ...formData,
+      // 2) Enregistrement des données de triage dans la base via route dédiée
+      await axios.put(`http://localhost:3000/api/patients/${id}/triage`, {
+        age: Number(formData.age),
+        painScale: Number(formData.painScale),
+        source: mapSourceToCode[formData.source],
+        systolicBP: Number(formData.systolicBP),
+        o2Saturation: Number(formData.o2Saturation),
+        temperature: Number(formData.temperature),
         triageGrade: grade,
         status
       });
@@ -125,7 +131,6 @@ const UpdatePatientTriage = () => {
             🏥 Patient Status: <strong>{triageResult.status}</strong>
           </div>
         )}
-        {/*message && <div className="alert alert-info">{message}</div>*/}
 
         <form onSubmit={handleSubmit} className="row g-3">
           <fieldset>
